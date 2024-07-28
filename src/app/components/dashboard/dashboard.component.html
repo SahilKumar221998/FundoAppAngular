@@ -1,0 +1,81 @@
+<div class="container">
+    <mat-toolbar color="primary" class="app-toolbar">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon *ngIf="!isSidenavCollapsed && !hasClicked">menu</mat-icon>
+        <mat-icon *ngIf="!isSidenavCollapsed && hasClicked">menu</mat-icon>
+        <mat-icon *ngIf="isSidenavCollapsed">menu</mat-icon>
+      </button>
+      <img src="assets/icons/keep.png" alt="Google Keep" class="logo">
+      <span class="app-name">Keep</span>
+      <div class="search-bar">
+        <mat-icon>search</mat-icon>
+        <input matInput placeholder="Search">
+      </div>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
+    </mat-toolbar>
+  
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav 
+        #sidenav 
+        mode="side" 
+        [opened]="true" 
+        [ngClass]="{ 'app-sidenav-collapsed': isSidenavCollapsed, 'app-sidenav-expanded': !isSidenavCollapsed }">
+        <mat-nav-list>
+          <mat-list-item 
+            routerLink="/notes"
+            [ngClass]="{'active': activeItem === 'notes'}"
+            (click)="setActive('notes')">
+            <mat-icon matListIcon>lightbulb_outline</mat-icon>
+            <span matLine>Notes</span>
+          </mat-list-item>
+          <mat-list-item 
+            routerLink="/reminders"
+            [ngClass]="{'active': activeItem === 'reminders'}"
+            (click)="setActive('reminders')">
+            <mat-icon matListIcon>notifications_none</mat-icon>
+            <span matLine>Reminders</span>
+          </mat-list-item>
+          <mat-list-item 
+            routerLink="/edit"
+            [ngClass]="{'active': activeItem === 'edit'}"
+            (click)="setActive('edit')">
+            <mat-icon matListIcon>edit</mat-icon>
+            <span matLine>Edit labels</span>
+          </mat-list-item>
+          <mat-list-item 
+            routerLink="/archive"
+            [ngClass]="{'active': activeItem === 'archive'}"
+            (click)="setActive('archive')">
+            <mat-icon matListIcon>archive</mat-icon>
+            <span matLine>Archive</span>
+          </mat-list-item>
+          <mat-list-item 
+            routerLink="/trash"
+            [ngClass]="{'active': activeItem === 'trash'}"
+            (click)="setActive('trash')">
+            <mat-icon matListIcon>delete</mat-icon>
+            <span matLine>Trash</span>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  

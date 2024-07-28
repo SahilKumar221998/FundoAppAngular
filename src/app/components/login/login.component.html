@@ -1,0 +1,48 @@
+<div class="container">
+   <div class="header">
+    <!-- header section -->
+    <div class="fundo">
+        <div class="mat-card-header-text">
+            <span style="color: rgba(34, 34, 216, 0.788);">F</span>
+            <span style="color: rgba(209, 12, 22, 0.788);">u</span>
+            <span style="color: rgba(216, 143, 34, 0.788);">n</span>
+            <span style="color: rgba(34, 34, 216, 0.788);">d</span>
+            <span style="color: rgba(34, 216, 49, 0.788);">o</span>
+            <span style="color: rgba(209, 12, 22, 0.788);">o</span>
+        </div>
+        <div class="mat-card-header-text">Log In</div>
+        <div class="mat-card-header-text"> <mat-card-subtitle>Use your Fundoo Account</mat-card-subtitle></div>
+    </div>
+    <!--form section-->
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+         <!-- usre email id -->
+        <div class="email">
+            <mat-form-field appearance="outline" class="email">
+            <mat-label aria-autocomplete="off">Email id</mat-label>
+            <input matInput placeholder="Enter your email id" type="email" formControlName="email" />
+            
+            <mat-error>Enter Valid Email</mat-error>
+          </mat-form-field>
+        </div>
+        <!-- password -->
+        <div class="email">
+            <mat-form-field appearance="outline" class="password">
+                <mat-label>Enter your password</mat-label>
+                <input matInput placeholder="Enter your password" type="password" autocomplete="off" requried  formControlName="password"/>
+                <mat-error *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
+                    <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+                    <span *ngIf="f['email'].errors?.['email']">Enter a valid email</span>
+                  </mat-error>
+              </mat-form-field>
+        </div>
+
+        <div class="button"><button mat-button>Forgot Password?</button></div>
+        <div class="footer">
+            <button id="create" mat-button fxLayoutAlign="center" routerLink="/signUp">Create New Account</button>
+        <button  mat-button  fxLayoutAlign="center center" mat-raised-button
+          color="primary"  mat-button aria-label="Show an example snack-bar" routerLink="/dashboard">Login</button>
+        </div>
+
+    </form>
+   </div>
+</div>

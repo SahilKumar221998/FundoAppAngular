@@ -1,0 +1,312 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Google Sans", "Noto Sans Myanmar UI", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.header {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  width: 60%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.article {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.mat-card-header {
+  height: 10%;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mat-card-header span {
+  font-size: 20px;
+}
+
+.section1 {
+  height: 8%;
+  width: 90%;
+}
+
+.form {
+  height: 80%;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.section1 p {
+  color: rgba(0, 0, 0, 0.942);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.section2 {
+  height: 18%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section2 mat-form-field {
+  width: 50%;
+  margin-top: 20px;
+}
+
+.passwordError p {
+  font-size: 8px;
+  position: absolute;
+  top: -3px;
+  left: 7px;
+}
+
+.required {
+  font-size: 8px;
+  position: absolute;
+  top: -3px;
+  left: 7px;
+}
+
+.section3 {
+ 
+  height: 12%;
+  width: 100%;
+  display: flex;
+  align-items:flex-start;
+  justify-content: flex-start;
+}
+
+.section3 mat-form-field {
+  display: flex;
+  align-items:flex-start;
+  justify-content: flex-start;
+ 
+  width: 100%;
+  margin-top: 20px;
+}
+
+.section3 mat-hint {
+  width: 100%;
+  position: absolute;
+  right:0px;
+  font-size: 10px;
+  color: #000000ec;
+}
+.emailhint{
+  
+  height: 12%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.section4 {
+  height: 12%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+}
+
+.section4 mat-card-actions a {
+  text-decoration: none;
+  font-size: 10px;
+  
+}
+
+.section6 {
+  height: 12%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  position: relative;
+}
+
+.hint-checkbox-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
+}
+
+.section6 mat-hint {
+  font-size: 10px;
+  margin-right: 10px; /* Adjust this value as needed for spacing */
+}
+
+.checkbox {
+  transform: scale(0.8); /* Decrease the size of the checkbox */
+  transform-origin: left;
+}
+.pwd {
+  font-size: 8px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.first_name_err, .last_name_err {
+  font-size: 8px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.section7 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mat-card-actions {
+  height: 100%;
+  width: 98%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mat-card-actions a {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+.mat-card-actions button {
+  background-color: #007bff;
+  color: white;
+  height: 60%;
+  border-radius: 10px;
+}
+
+.mat-card-actions button:hover {
+  background-color: #0056b3;
+}
+
+.section8 {
+  border: 1px solid green;
+  height: 12%;
+  width: 100%;
+}
+
+.aside {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.aside img {
+  height: 35%;
+  width: 60%;
+}
+
+.logohint {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .article {
+    width: 100%;
+  }
+
+  .section2 {
+    flex-direction: column;
+  }
+
+  .section2 mat-form-field {
+    width: 100%;
+  }
+
+  .aside {
+    display: none;
+  }
+
+  .section6 mat-hint {
+    position: static;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .mat-card-header span {
+    font-size: 18px;
+  }
+
+  .section1 p {
+    font-size: 14px;
+  }
+
+  .mat-card-actions a {
+    font-size: 10px;
+  }
+
+  .mat-card-actions button {
+    font-size: 14px;
+  }
+
+  .button button {
+    font-size: 10px;
+  }
+
+  #create {
+    font-size: 10px;
+  }
+
+  .section6 mat-hint {
+    position: static;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    left: 0;
+  }
+}

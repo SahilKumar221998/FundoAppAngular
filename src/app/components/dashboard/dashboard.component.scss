@@ -1,0 +1,106 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .app-toolbar {
+    background-color: #fff;
+    color: #3c4043;
+    height: 64px;
+    padding: 0 16px;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+  }
+  
+  .logo {
+    height: 40px;
+    margin-right: 16px;
+  }
+  
+  .app-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: 16px;
+    color: #3c4043;
+  }
+  
+  .spacer {
+    flex: 1;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f1f3f4;
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin-left: 20px;
+    flex-grow: 1;
+    height: 50%;
+    width: 40%;
+  }
+  
+  .search-bar mat-icon {
+    margin-right: 8px;
+    color: #5f6368;
+  }
+  
+  .search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: #3c4043;
+    width: 100%;
+  }
+  
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .sidenav-container {
+    height: calc(100vh - 64px);
+  }
+  
+  .app-sidenav {
+    background-color: #fff;
+    color: #3c4043;
+    width: 230px;
+    box-shadow: 1px 0 3px rgba(60, 64, 67, 0.3);
+    transition: width 0.3s;
+  }
+  
+  .app-sidenav-collapsed {
+    width: 60px;
+    
+  }
+  
+  .app-sidenav-expanded {
+    width: 230px;
+  }
+  
+  mat-list-item {
+    display: flex;
+    align-items: center;
+    color: #3c4043;
+    padding: 8px 16px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  
+  mat-list-item.active {
+    background-color: #feefc3;
+  }
+  
+  mat-list-item mat-icon {
+    margin-right: 16px;
+    color: #5f6368;
+  }
+  
+  mat-list-item.active mat-icon {
+    color: #3c4043;
+  }
+  

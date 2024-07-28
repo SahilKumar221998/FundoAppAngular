@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="header">
+      <div class="article">
+        <div class="mat-card-header">
+          <span style="color: rgba(34, 34, 216, 0.788);">F</span>
+          <span style="color: rgba(209, 12, 22, 0.788);">u</span>
+          <span style="color: rgba(216, 143, 34, 0.788);">n</span>
+          <span style="color: rgba(34, 34, 216, 0.788);">d</span>
+          <span style="color: rgba(34, 216, 49, 0.788);">o</span>
+          <span style="color: rgba(209, 12, 22, 0.788);">o</span>
+        </div>
+        <div class="section1">
+          <p class="register-text">Create your Fundoo Account</p>
+        </div>
+        <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <div class="section2">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput name="first_name" type="text" required formControlName="firstName">
+              <mat-error *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched)">
+                <div class="first_name_err" *ngIf="f['firstName'].errors?.['required']">First Name is required</div>
+                <div *ngIf="f['firstName'].errors?.['pattern']">First Name should only contain letters</div>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput name="last_name" type="text" required formControlName="lastName">
+              <mat-error *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched)">
+                <div class="last_name_err" *ngIf="f['lastName'].errors?.['required']">Last Name is required</div>
+                <div *ngIf="f['lastName'].errors?.['pattern']">Last Name should only contain letters</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="section3">
+            <mat-form-field floatLabel="auto" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput name="email" type="email" required formControlName="email">
+              <mat-hint class="emailhint">you can use letters, numbers & periods</mat-hint>
+              <mat-error *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
+                <div class="pwd" *ngIf="f['email'].errors?.['required']">Email is required</div>
+                <div class="pwd" *ngIf="f['email'].errors?.['email']">Email must be a valid email address</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="section4">
+            <mat-card-actions>
+              <a href="">Use my current email address instead</a>
+            </mat-card-actions>
+          </div>
+          <div class="section2">
+            <mat-form-field floatLabel="auto" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input class="inputbutton" matInput name="password" [type]="showPassword ? 'text' : 'password'" required formControlName="password">
+              <mat-error *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
+                <div *ngIf="f['password'].errors?.['required']" class="required">Required</div>
+                <div *ngIf="f['password'].errors?.['pattern']" class="passwordError"><p>Password must be 8 characters</p></div>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field floatLabel="auto" appearance="outline">
+              <mat-label>Confirm</mat-label>
+              <input matInput name="confirmpassword" [type]="showPassword ? 'text' : 'password'" required formControlName="confirmPassword">
+              <mat-error *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched)">
+                <div *ngIf="f['confirmPassword'].errors?.['required']" class="required">Required</div>
+                <div *ngIf="f['confirmPassword'].errors?.['mismatch']">Passwords must match</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="section6">
+            <mat-hint>Use 8 or more characters with a mix of letters, numbers & symbols</mat-hint>
+            <mat-checkbox (click)="toggleShowPassword()" class="checkbox">Show Password</mat-checkbox>
+          </div>
+          <div class="section7">
+            <mat-card-actions class="mat-card-actions">
+              <a routerLink="" class="signininstead">Sign in instead</a>
+              <button mat-flat-button>Next</button>
+            </mat-card-actions>
+          </div>
+          </form>
+      </div>
+      <div class="aside">
+        <img src="../../assets/accounts.jpeg" alt="accounts"><br>
+        <mat-hint class="logohint">One account. All of Google working for you.</mat-hint>
+      </div>
+    </div>
+  </div>
+  
