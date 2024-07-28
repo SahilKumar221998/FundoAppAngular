@@ -9,7 +9,15 @@ export class DashboardComponent {
   activeItem: string = 'notes';
   isSidenavCollapsed = false;
   hasClicked = false;
+  isExpanded = false;
+  
+  expandForm() {
+    this.isExpanded = true;
+  }
 
+  collapseForm() {
+    this.isExpanded = false;
+  }
   setActive(item: string) {
     this.activeItem = item;
   }
