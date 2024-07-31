@@ -1,0 +1,8 @@
+<div class="color-lens">
+    <div *ngFor="let color of colors" 
+         [style.background]="color" 
+         class="color-circle"
+         (click)="selectColor(color)">
+    </div>
+  </div>
+  

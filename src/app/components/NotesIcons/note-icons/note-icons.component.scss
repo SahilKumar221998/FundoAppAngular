@@ -1,0 +1,61 @@
+.note-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .icons {
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5f6368;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 15px;
+    padding: 4px;
+    border-radius: 50%;
+  }
+  .color{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    width: 35px;
+    color: #5f6368;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 50%;
+  }
+   .color mat-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 15px;
+    padding: 4px;
+   }
+   .color:hover{
+    background-color:lightgray;
+    color: #3c4043;
+   }
+  .close button {
+    margin-left: 15px;
+    color: #5f6368;
+    font-size: 13px;
+  }
+  
+  .note-icons mat-icon:hover, .color-lens mat-icon:hover {
+    background-color: lightgray;
+    color: #3c4043;
+  }
+  

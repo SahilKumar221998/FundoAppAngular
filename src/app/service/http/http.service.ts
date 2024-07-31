@@ -9,8 +9,14 @@ export class HttpService {
   postService(url:string,data:any,token:boolean=false,httpOptions:any){
     return this.httpClient.post(url,data,token && httpOptions)
   }
-  getService(url:string,data:any,token:boolean=false,httpOptions:any){
-    return this.httpClient.get(url,data)
+  getService(url:string,token:boolean=false,httpOptions:any){
+    return this.httpClient.get(url,token && httpOptions)
+  }
+  putService(url: string,data:any, token:boolean=false,httpOptions:any){
+    return this.httpClient.put(url,data,token && httpOptions);
+  }
+  deleteService(url:string,data:any, token:boolean=false,httpOptions:any){
+    return this.httpClient.delete(url,token && httpOptions);
   }
 }
 

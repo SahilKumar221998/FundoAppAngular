@@ -1,0 +1,30 @@
+.mat-menu-panel.custom-menu {
+  min-width: 900px; 
+  max-width: 100%; 
+}
+
+.color-lens {
+  display: flex;
+  flex-wrap: nowrap;
+  gap :5px;
+  padding:8px;
+}
+
+.color-circle {
+  width: 32px;  
+  height: 23px; 
+  border-radius: 50%; 
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s, background-color 0.3s;
+  box-sizing: border-box; 
+}
+.color-circle:hover {
+  transform: scale(1.1);
+  background-color: lightgray;
+  border:1px solid black;
+}
+
+.color-circle.selected {
+  border: 2px solid black;
+}

@@ -10,6 +10,8 @@
   height: 64px;
   padding: 0 16px;
   box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+  display: flex;
+  align-items: center;
 }
 
 .logo {
@@ -110,6 +112,8 @@
 }
 
 .note-content {
+  border:1px solid red;
+  display: flex;
   flex: 1;
   border: none;
   outline: none;
@@ -118,39 +122,7 @@
   font-size:13px;
   color: #3c4043;
 }
-.note-icons{
-  display: flex;
-  align-items: center;
-  justify-content:flex-start;
-}
-.icons {
-  display: flex;
-  width: 80%;
-  justify-content:flex-start;
-  align-items:first baseline;
-  gap:13px;
-}
 
-.note-icons mat-icon {
-  display: flex;
-  align-items: center;
-  justify-content:center;
-  color: #5f6368;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  font-size: 15px;
-  padding: 4px;
-  border-radius: 50%;
-}
-.close button{
-  margin-left: 15px;
-  color: #5f6368;
-  font-size: 13px;
-}
-.note-icons mat-icon:hover {
-  background-color:lightgray;
-  color: #3c4043;
-}
 
 mat-toolbar {
   position: sticky;
@@ -180,22 +152,43 @@ mat-toolbar {
 
 mat-list-item {
   display: flex;
-  align-items: center;
-  color: #3c4043;
-  padding: 8px 16px;
+  align-items: center; /* Vertically center the items */
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   margin-right: 8px;
   cursor: pointer;
-}
-
-mat-list-item.active {
-  background-color: #feefc3;
+  font-size: 1rem;
+  box-sizing: border-box; /*padding is included in the width */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
 }
 
 mat-list-item mat-icon {
   margin-right: 16px;
-  color: #5f636885;
+  margin-top: 5px; /* Space between icon and text */
+  color: #5f6368;
+  font-size: 18px; /* Icon size */
+  height: 100%;
+  width:9%;
+  
+}
+
+mat-list-item .mat-line {
+  flex: 1; /* Ensure the text takes available space */
+  display: flex;
+  align-items: center;
+}
+
+span {
+  margin: 0; /* Remove any default margin */
+  font-size: 18px; /* Ensure font size matches the rest */
+}
+
+mat-list-item:hover {
+  background-color:rgba(211, 211, 211, 0.165); /* Background color on hover */
+}
+
+mat-list-item.active {
+  background-color: #efce6d;
 }
 
 mat-list-item.active mat-icon {

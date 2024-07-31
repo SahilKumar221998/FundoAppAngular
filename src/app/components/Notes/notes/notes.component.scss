@@ -1,0 +1,88 @@
+.notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Space between cards */
+  margin-left: 240px; /* Adjust according to the width of your sidenav */
+}
+
+.note {
+  position: relative; /* Allows absolute positioning of child elements */
+  width: 260px; /* Adjust width as needed */
+  height: 160px; /* Adjust height as needed */
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  margin-bottom: 16px;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.note-content h3 {
+  height: 60%;
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.note-content p {
+  height:50%;
+  margin: 0;
+  color: #333;
+}
+
+.note-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items:end;
+  border-radius: 8px;
+  margin-top: 65px;
+  width: 100%;
+  height: 35%;
+  background: rgba(255, 255, 255, 0.9); /* Optional background for better visibility */
+  z-index: 1; /* Ensure icons appear above other content */
+  visibility: hidden; /* Hide by default */
+}
+
+.note:hover .note-icons {
+  visibility: visible; /* Show icons on hover */
+}
+
+.icons {
+  width: 100%;
+  height:100%;
+  display: flex;
+  align-items:center;
+  justify-content: space-evenly;
+  gap:12px;
+}
+
+.icon {
+  height: 70%;
+  width: 40%;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.icon:hover{
+  background-color: rgba(211, 211, 211, 0.391);
+  border-radius: 50%;
+
+}
+.lens{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+.lens:hover{
+  background-color: lightgray;
+  border-radius: 50%;
+}

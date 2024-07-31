@@ -21,12 +21,20 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NoteIconsComponent } from './components/NotesIcons/note-icons/note-icons.component';
+import { ColorlensiconComponent } from './components/ColorLens/colorlensicon/colorlensicon.component';
+import { NotesComponent } from './components/Notes/notes/notes.component';
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    NoteIconsComponent,
+    ColorlensiconComponent,
+    NotesComponent
+    
+  
   ],
   imports: [
     ReactiveFormsModule,

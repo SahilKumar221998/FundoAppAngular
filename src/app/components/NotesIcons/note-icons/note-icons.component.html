@@ -1,0 +1,21 @@
+<div class="note-icons">
+    <div class="icons">
+      <mat-icon class="icon">notifications</mat-icon>
+      <mat-icon class="icon">person_add</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="colorLensMenu" class="color">
+        <mat-icon>color_lens</mat-icon>
+      </button>
+      <mat-menu #colorLensMenu="matMenu">
+        <app-colorlensicon (colorSelected)="handleColorSelected($event)"></app-colorlensicon>
+      </mat-menu>
+      <mat-icon class="icon">archive</mat-icon>
+      <mat-icon class="icon">more_vert</mat-icon>
+      <mat-icon class="icon">undo</mat-icon>
+      <mat-icon class="icon">image</mat-icon>
+      <mat-icon class="icon">redo</mat-icon>
+    </div>
+    <div class="close">
+      <button mat-button (click)="collapseForm()">Close</button>
+    </div>
+  </div>
+  
