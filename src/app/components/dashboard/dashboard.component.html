@@ -81,20 +81,34 @@
         <mat-icon>image</mat-icon>
       </div>
       <div class="note-form" *ngIf="isExpanded">
-        <form [formGroup]="notesForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="notesForm">
           <input formControlName="title" matInput placeholder="Title" class="note-title">
           <textarea formControlName="description" matInput placeholder="Take a note..." class="note-content"></textarea>
-          <app-note-icons (collapse)="handleCollapse()"></app-note-icons>
+          <app-note-icons (close)="handleClose()"></app-note-icons>
         </form>
       </div>
       <ng-container *ngIf="activeItem === 'notes'">
-        <app-notes [notes]="notes" (archive)="archiveNote($event)" (trash)="trashNote($event)"></app-notes>
+        <app-notes 
+          [notes]="notes" 
+          (archive)="archiveNote($event)" 
+          (trash)="trashNote($event)">
+        </app-notes>
       </ng-container>
+      
       <ng-container *ngIf="activeItem === 'archive'">
-        <app-notes [notes]="archivedNotes" (archive)="archiveNote($event)"(trash)="trashNote($event)"></app-notes>
+        <app-notes 
+          [notes]="archivedNotes" 
+          (archive)="archiveNote($event)"
+          (unarchive)="unarchiveNote($event)">
+        </app-notes>
       </ng-container>
+      
       <ng-container *ngIf="activeItem === 'trash'">
-        <app-notes [notes]="trashedNotes" (trash)="trashNote($event)"></app-notes>
+        <app-notes 
+          [notes]="trashedNotes" 
+          (trash)="trashNote($event)"
+          (restore)="restoreNote($event)">
+        </app-notes>
       </ng-container>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

@@ -45,4 +45,25 @@ export class NotesService {
       };
       return this.httpService.putService(`${this.url}/Trash?noteId=${noteId}`, {}, true, { headers: header });
     }
+    changeColor(data: any) {
+      const header = {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer " + this.token
+      };
+      return this.httpService.putService(`${this.url}/Color?noteId=${data.noteId}&backgroundcolo=${data.color}`, data, true, header);
+    }
+    restoreNote(noteId: string){
+      const header = {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer " + this.token
+      };
+      return this.httpService.putService(`${this.url}/RestoreNote?noteId=${noteId}`, {}, true, { headers: header });
+    }
+    unArchieveNote(noteId: string){
+      const header = {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer " + this.token
+      };
+      return this.httpService.putService(`${this.url}/UnArchieve?noteId=${noteId}`, {}, true, { headers: header });
+    }
 }

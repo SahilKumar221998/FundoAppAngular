@@ -9,6 +9,7 @@
     </div>
     <div *ngIf="hoveredNoteId === note.noteId" class="note-icons">
       <div class="icons">
+        <!-- Always visible icons -->
         <mat-icon class="icon">notifications</mat-icon>
         <mat-icon class="icon">person_add</mat-icon>
         <button mat-icon-button [matMenuTriggerFor]="colorLensMenu" class="color">
@@ -17,9 +18,49 @@
         <mat-menu #colorLensMenu="matMenu">
           <app-colorlensicon (colorSelected)="handleColorSelected($event)"></app-colorlensicon>
         </mat-menu>
-        <mat-icon class="icon" (click)="archiveNote(note.noteId)">archive</mat-icon>
         <mat-icon class="icon">image</mat-icon>
-        <mat-icon class="icon">more_vert</mat-icon>
+
+        <!-- <mat-icon *ngIf="activeItem === 'notes' && !note.archieve && !note.trash" class="icon" (click)="archiveNote(note.noteId)">
+          archive
+        </mat-icon>
+        
+        <mat-icon *ngIf="activeItem === 'notes' && !note.archieve && !note.trash" class="icon" (click)="trashNote(note.noteId)">
+          delete
+        </mat-icon>
+        
+        <mat-icon *ngIf="activeItem === 'archive' && note.archieve" class="icon" (click)="unarchiveNote(note.noteId)">
+          unarchive
+        </mat-icon>
+        
+        <mat-icon *ngIf="activeItem === 'archive' && !note.trash" class="icon" (click)="archiveNote(note.noteId)">
+          archive
+        </mat-icon>
+        
+        <mat-icon *ngIf="activeItem === 'trash' && note.trash" class="icon" (click)="restoreNote(note.noteId)">
+          restore
+        </mat-icon>
+        
+        <mat-icon *ngIf="activeItem === 'trash' && !note.trash" class="icon" (click)="trashNote(note.noteId)">
+          delete
+        </mat-icon>
+        <mat-icon class="icon" (click)="archiveNote(note.noteId)">
+          archive
+        </mat-icon>-->
+        <!-- Static icon for unarchiving a note -->
+        <mat-icon class="icon" (click)="archiveNote(note.noteId)">archive</mat-icon>
+        <mat-icon class="icon" (click)="unarchiveNote(note.noteId)">
+          unarchive
+        </mat-icon>
+        
+        <mat-icon class="icon" (click)="trashNote(note.noteId)">
+          delete
+        </mat-icon>
+        
+        <!-- Static icon for restoring a note -->
+        <mat-icon class="icon" (click)="restoreNote(note.noteId)">
+          restore
+        </mat-icon>
+      </div>
     </div>
   </div>
 </div>

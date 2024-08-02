@@ -13,6 +13,7 @@ import { OnInit } from '@angular/core';
 export class NoteIconsComponent {
   notesForm!: FormGroup;
   @Output() collapse=new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
   isColorLensVisible = false;
   token:any;
 
@@ -26,11 +27,11 @@ ngOnInit() {
     description: ['']
   });
 }
-  collapseForm() {
-    this.collapse.emit();
-  }
+
   handleColorSelected(color: string) {
     console.log('Selected color:', color);
   }
-
+  onClose() {
+    this.close.emit(); // Emit the event when the Close button is clicked
+  }
 }

@@ -25,13 +25,11 @@
 }
 
 .note-content h3 {
-  height: 60%;
   margin-top: 0;
   font-size: 1.25rem;
 }
 
 .note-content p {
-  height:50%;
   margin: 0;
   color: #333;
 }
@@ -39,7 +37,7 @@
 .note-icons {
   display: flex;
   justify-content: space-between;
-  align-items:end;
+  align-items: end;
   border-radius: 8px;
   margin-top: 65px;
   width: 100%;
@@ -55,11 +53,11 @@
 
 .icons {
   width: 100%;
-  height:100%;
+  height: 100%;
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: space-evenly;
-  gap:12px;
+  gap: 12px; /* Space between icons */
 }
 
 .icon {
@@ -71,18 +69,20 @@
   justify-content: center;
   cursor: pointer;
 }
-.icon:hover{
-  background-color: rgba(211, 211, 211, 0.391);
-  border-radius: 50%;
 
+.icon:hover {
+  background-color: rgba(211, 211, 211, 0.4); /* Adjusted for visibility */
+  border-radius: 50%;
 }
-.lens{
+
+.lens {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 15px;
 }
-.lens:hover{
-  background-color: lightgray;
+
+.lens:hover {
+  background-color: lightgray; /* Adjusted for visibility */
   border-radius: 50%;
 }

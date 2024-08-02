@@ -41,15 +41,21 @@ export class DashboardComponent implements OnInit {
     this.notesService.getAllNoteService().subscribe(
       (response: any) => {
         if (response.success && Array.isArray(response.data)) {
-          this.notes = response.data.filter((note: any) => !note.archieve && !note.trash);
-          this.archivedNotes = response.data.filter((note: any) => note.archieve==true&&note.trash==false);
-          this.trashedNotes = response.data.filter((note: any) => note.trash==true&&note.archieve==false);
+          // Update notes based on the activeItem
+          this.notes = response.data.filter((note: any) => 
+            this.activeItem === 'notes' && !note.archieve && !note.trash ||
+            this.activeItem === 'archive' && note.archieve && !note.trash ||
+            this.activeItem === 'trash' && note.trash && !note.archieve
+          );
+          
+          this.archivedNotes = response.data.filter((note: any) => note.archieve==true||null && note.trash==false);
+          this.trashedNotes = response.data.filter((note: any) => note.trash==true && note.archieve==false);
         } else {
           this.matSnackBar.open('Error fetching notes', '', { duration: 3000 });
         }
       },
       (error: any) => {
-        console.log(error);
+        console.log('Fetch Notes Error:', error);
         this.matSnackBar.open('Error fetching notes', '', { duration: 3000 });
       }
     );
@@ -70,9 +76,9 @@ export class DashboardComponent implements OnInit {
 
   setActive(item: string) {
     this.activeItem = item;
-    if (item === 'notes' || item === 'archive' || item === 'trash') {
-      this.fetchNotes();
-    }
+    console.log('Active Item:', this.activeItem);
+    console.log('Notes:', this.notes);
+    this.fetchNotes();  
   }
 
   toggleSidenav() {
@@ -113,6 +119,10 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  handleClose() {
+    this.onSubmit();
+    this.collapseForm();
+  }
 
   archiveNote(noteId: string) {
     this.notesService.archiveNoteService(noteId).subscribe(
@@ -138,4 +148,28 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  unarchiveNote(noteId: string) {
+    this.notesService.unArchieveNote(noteId).subscribe(
+      (response: any) => {
+        this.matSnackBar.open('Note unarchived', '', { duration: 3000 });
+        this.fetchNotes();
+      },
+      (error: any) => {
+        this.matSnackBar.open('Error unarchiving note', '', { duration: 3000 });
+      }
+    );
+  }
+
+  restoreNote(noteId: string) {
+    this.notesService.restoreNote(noteId).subscribe(
+      (response: any) => {
+        this.matSnackBar.open('Note restored', '', { duration: 3000 });
+        this.fetchNotes();
+      },
+      (error: any) => {
+        this.matSnackBar.open('Error restoring note', '', { duration: 3000 });
+      }
+    );
+  }
+
 }

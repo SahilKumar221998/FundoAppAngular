@@ -24,6 +24,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NoteIconsComponent } from './components/NotesIcons/note-icons/note-icons.component';
 import { ColorlensiconComponent } from './components/ColorLens/colorlensicon/colorlensicon.component';
 import { NotesComponent } from './components/Notes/notes/notes.component';
+import { NotesDropDownComponent } from './components/NotesDropDown/notes-drop-down/notes-drop-down.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +34,8 @@ import { NotesComponent } from './components/Notes/notes/notes.component';
     DashboardComponent,
     NoteIconsComponent,
     ColorlensiconComponent,
-    NotesComponent
-    
+    NotesComponent,
+    NotesDropDownComponent
   
   ],
   imports: [
