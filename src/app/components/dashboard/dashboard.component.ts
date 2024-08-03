@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotesService } from './../../service/Notes/notes.service';
 import { Router } from '@angular/router';
@@ -16,8 +16,14 @@ export class DashboardComponent implements OnInit {
   isExpanded = false;
   notesForm!: FormGroup;
   notes: any[] = [];
+  filteredNotes: any[] = [];
   archivedNotes: any[] = [];
   trashedNotes: any[] = [];
+  selectedNote: any;
+  showEditor = false;
+  viewMode: 'list' | 'grid' = 'list';
+  searchControl = new FormControl(''); 
+  selectedColor: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +39,10 @@ export class DashboardComponent implements OnInit {
       Image: [''],
       Backgroundcolor: ['']
     });
-
+   
+    this.searchControl.valueChanges.subscribe(query => {
+      this.filterNotes(query);
+    });
     this.fetchNotes();
   }
 
@@ -43,13 +52,22 @@ export class DashboardComponent implements OnInit {
         if (response.success && Array.isArray(response.data)) {
           // Update notes based on the activeItem
           this.notes = response.data.filter((note: any) => 
-            this.activeItem === 'notes' && !note.archieve && !note.trash ||
-            this.activeItem === 'archive' && note.archieve && !note.trash ||
-            this.activeItem === 'trash' && note.trash && !note.archieve
+            this.activeItem == 'notes' && note.archieve ==false && note.trash == false ||
+            this.activeItem == 'archive' && note.archieve == true && note.trash == false ||
+            this.activeItem == 'trash' && note.trash == true && note.archieve == false
           );
           
-          this.archivedNotes = response.data.filter((note: any) => note.archieve==true||null && note.trash==false);
-          this.trashedNotes = response.data.filter((note: any) => note.trash==true && note.archieve==false);
+          this.archivedNotes = response.data.filter((note: any) => note.archieve == true && note.trash ==false);
+          this.trashedNotes = response.data.filter((note: any) => note.trash == true && note.archieve == false);
+          
+           // Log each note to verify Backgroundcolor
+        this.filteredNotes = this.notes.map(note => {
+          // console.log('Note Backgroundcolor:', note.backgroundcolor); // Log Backgroundcolor
+          return {
+            ...note,
+            Backgroundcolor: note.Backgroundcolor || '#fff'
+          };
+        });
         } else {
           this.matSnackBar.open('Error fetching notes', '', { duration: 3000 });
         }
@@ -104,7 +122,7 @@ export class DashboardComponent implements OnInit {
       title: this.notesForm.value.title,
       description: this.notesForm.value.description,
       Image: this.notesForm.value.Image,
-      Backgroundcolor: this.notesForm.value.Backgroundcolor
+      Backgroundcolor: this.selectedColor
     };
 
     this.notesService.createNotes(data).subscribe(
@@ -119,11 +137,6 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-  handleClose() {
-    this.onSubmit();
-    this.collapseForm();
-  }
-
   archiveNote(noteId: string) {
     this.notesService.archiveNoteService(noteId).subscribe(
     
@@ -136,7 +149,18 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
+  
+  deleteNote(noteId:string){
+    console.log(noteId);
+    this.notesService.deletenote(noteId).subscribe((response: any) => {
+      this.matSnackBar.open('Note Deleted', '', { duration: 3000 });
+      this.fetchNotes();
+    },
+    (error: any) => {
+      this.matSnackBar.open('Error deleting note', '', { duration: 3000 });
+    }
+  );
+   }
   trashNote(noteId: string) {
     this.notesService.trashNoteService(noteId).subscribe(
       (response: any) => {
@@ -171,5 +195,59 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  openEditor(note: any) {
+    this.selectedNote = note;
+    this.showEditor = true;  // Controls visibility of the NoteEditor
+  }
 
+  handleSave(noteData: any) {
+    console.log(noteData);
+    if (!noteData.noteId) {
+      this.matSnackBar.open('Note ID is missing', '', { duration: 3000 });
+      return;
+    }
+  
+    const updatedNote = {
+      noteId: noteData.noteId, // Ensure note ID is included
+      title: noteData.title,
+      description: noteData.description||"", // Default to empty string if not provided
+      image: noteData.image||"", // Default to empty string if not provide
+      backgroundcolor:this.selectedColor
+    };
+    this.notesService.updateNotes(updatedNote).subscribe(
+      response => {
+        this.matSnackBar.open('Note updated successfully', '', { duration: 3000 });
+        this.showEditor = false; // Hide the editor
+        this.fetchNotes(); // Refresh the list to show updated data
+      },
+      error => {
+        this.matSnackBar.open('Error updating note', '', { duration: 3000 });
+      }
+    );
+  }
+  
+  handleClose() {
+    this.handleCollapse();
+    this.showEditor = false;  
+  }
+
+  toggleViewMode() {
+    this.viewMode = this.viewMode === 'list' ? 'grid' : 'list';
+  }
+
+  filterNotes(query: string|null) {
+    if (!query) {
+      this.filteredNotes = [...this.notes];
+    } else {
+      const lowerCaseQuery = query.toLowerCase();
+      this.filteredNotes = this.notes.filter(note =>
+        note.title.toLowerCase().includes(lowerCaseQuery) ||
+        note.description.toLowerCase().includes(lowerCaseQuery)
+      );
+    }
+  }
+  handleColorSelected(color: string) {
+    this.selectedColor = color;
+    this.notesForm.get('backgroundcolor')?.setValue(color);
+  }
 }

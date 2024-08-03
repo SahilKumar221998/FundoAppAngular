@@ -1,0 +1,19 @@
+<div class="note-editor-container">
+    <mat-card class="note-editor-card">
+      <mat-card-header>
+        <mat-card-title>
+          <input matInput [(ngModel)]="note.title" placeholder="Title" class="note-title">
+        </mat-card-title>
+        <button mat-icon-button (click)="handleClose()" class="close">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <textarea matInput [(ngModel)]="note.description" placeholder="Take a note..." class="note-content"></textarea>
+      </mat-card-content>
+      <mat-card-actions class="note-actions">
+       <app-note-icons (close)="saveNote()" ></app-note-icons>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  

@@ -66,4 +66,26 @@ export class NotesService {
       };
       return this.httpService.putService(`${this.url}/UnArchieve?noteId=${noteId}`, {}, true, { headers: header });
     }
+    updateNotes(data: any) {
+      const header = {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer " + this.token
+      };
+      return this.httpService.putService(`${this.url}/updateNotes?noteId=${data.noteId}`, data, true,{ headers: header });
+    }
+    deletenote(noteId: string) {
+      const header = {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer " + this.token
+      };
+      return this.httpService.deleteService(`${this.url}/Delete?noteId=${noteId}`,{}, true,{headers: header });
+    }
+
+    updateBackground(noteId: string,color:string) {
+      const header = {
+        'Content-type': 'application/json',
+        'Authorization': "Bearer " + this.token
+      };
+      return this.httpService.putService(`${this.url}/Color?noteId=${noteId}`,{}, true,{headers: header });
+    }
 }

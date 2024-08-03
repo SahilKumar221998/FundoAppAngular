@@ -1,0 +1,97 @@
+.note-editor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .note-editor-card {
+    width: 80%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .note-title, .note-content {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .note-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5f6368;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 15px;
+    padding: 4px;
+    border-radius: 50%;
+  }
+  
+  .color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    width: 35px;
+    color: #5f6368;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 50%;
+  }
+  
+  .color mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 15px;
+    padding: 4px;
+  }
+  
+  .color:hover {
+    background-color: lightgray;
+    color: #3c4043;
+  }
+  
+  .close {
+    position: absolute;
+    right: 30px;
+    top:8px;
+    color: #5f6368;
+    font-size: 13px;
+  }
+  
+  .note-icons mat-icon:hover, .color-lens mat-icon:hover {
+    background-color: lightgray;
+    color: #3c4043;
+  }
+  
+  .save-button {
+    align-self: flex-end;
+  }
+  

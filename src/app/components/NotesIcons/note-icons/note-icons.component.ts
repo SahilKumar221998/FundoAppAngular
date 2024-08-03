@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotesService } from './../../../service/Notes/notes.service';
-import { Component, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { OnInit } from '@angular/core';
@@ -12,6 +12,7 @@ import { OnInit } from '@angular/core';
 })
 export class NoteIconsComponent {
   notesForm!: FormGroup;
+  @Output() colorSelected = new EventEmitter<string>();
   @Output() collapse=new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();
   isColorLensVisible = false;
@@ -29,9 +30,9 @@ ngOnInit() {
 }
 
   handleColorSelected(color: string) {
-    console.log('Selected color:', color);
+    this.colorSelected.emit(color); 
   }
   onClose() {
-    this.close.emit(); // Emit the event when the Close button is clicked
+    this.close.emit(); 
   }
 }

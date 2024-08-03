@@ -9,14 +9,14 @@
     <span class="app-name">Keep</span>
     <div class="search-bar">
       <mat-icon>search</mat-icon>
-      <input matInput placeholder="Search">
+      <input matInput placeholder="Search" [formControl]="searchControl">
     </div>
     <span class="spacer"></span>
     <button mat-icon-button>
       <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-icon-button>
-      <mat-icon>view_list</mat-icon>
+    <button mat-icon-button (click)="toggleViewMode()">
+      <mat-icon>view_list{{ viewMode === 'list' ? 'view_grid' : 'view_list' }}</mat-icon>
     </button>
     <button mat-icon-button>
       <mat-icon>settings</mat-icon>
@@ -84,12 +84,15 @@
         <form [formGroup]="notesForm">
           <input formControlName="title" matInput placeholder="Title" class="note-title">
           <textarea formControlName="description" matInput placeholder="Take a note..." class="note-content"></textarea>
-          <app-note-icons (close)="handleClose()"></app-note-icons>
+          <app-note-icons (close)="handleClose()" (colorSelected)="handleColorSelected($event)"></app-note-icons>
         </form>
       </div>
+    
       <ng-container *ngIf="activeItem === 'notes'">
         <app-notes 
-          [notes]="notes" 
+        [viewMode]="viewMode"
+        [notes]="filteredNotes" 
+          (editNote)="openEditor($event)"
           (archive)="archiveNote($event)" 
           (trash)="trashNote($event)">
         </app-notes>
@@ -97,6 +100,8 @@
       
       <ng-container *ngIf="activeItem === 'archive'">
         <app-notes 
+        [viewMode]="viewMode"
+          [activeItem]="activeItem"
           [notes]="archivedNotes" 
           (archive)="archiveNote($event)"
           (unarchive)="unarchiveNote($event)">
@@ -105,11 +110,15 @@
       
       <ng-container *ngIf="activeItem === 'trash'">
         <app-notes 
+        [viewMode]="viewMode"
           [notes]="trashedNotes" 
           (trash)="trashNote($event)"
-          (restore)="restoreNote($event)">
+          (restore)="restoreNote($event)"
+          (delete)="deleteNote($event)">
         </app-notes>
       </ng-container>
+      
+      <app-note-editor *ngIf="showEditor" [note]="selectedNote" (save)="handleSave($event)" (close)="handleClose()"></app-note-editor>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -25,6 +25,8 @@ import { NoteIconsComponent } from './components/NotesIcons/note-icons/note-icon
 import { ColorlensiconComponent } from './components/ColorLens/colorlensicon/colorlensicon.component';
 import { NotesComponent } from './components/Notes/notes/notes.component';
 import { NotesDropDownComponent } from './components/NotesDropDown/notes-drop-down/notes-drop-down.component';
+import { NoteEditorComponent } from './components/NotesEditor/note-editor/note-editor.component';
+import { FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { NotesDropDownComponent } from './components/NotesDropDown/notes-drop-do
     NoteIconsComponent,
     ColorlensiconComponent,
     NotesComponent,
-    NotesDropDownComponent
+    NotesDropDownComponent,
+    NoteEditorComponent
   
   ],
   imports: [
@@ -55,7 +58,8 @@ import { NotesDropDownComponent } from './components/NotesDropDown/notes-drop-do
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-   
+    FormsModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
