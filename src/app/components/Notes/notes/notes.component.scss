@@ -19,8 +19,9 @@
   justify-content: center;
 }
 .list-view .note {
-  width: 50%;
+  width: 55%;
   margin-bottom: 16px;
+  margin-left: 30px;
 }
 
 .grid-view {
@@ -74,7 +75,7 @@
   height: 35%;
   background: rgba(255, 255, 255, 0.9); /* Optional background for better visibility */
   z-index: 1; /* Ensure icons appear above other content */
-  visibility: hidden; /* Hide by default */
+  visibility:hidden; /* Hide by default */
 }
 
 .note:hover .note-icons {
@@ -91,9 +92,14 @@
 }
 .archieve{
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+}
+.archieve:hover{
+  background-color: rgba(211, 211, 211, 0.4); /* Adjusted for visibility */
+  border-radius: 50%;
 }
 .icon {
   height: 70%;
@@ -120,4 +126,70 @@
 .lens:hover {
   background-color: lightgray; /* Adjusted for visibility */
   border-radius: 50%;
+}
+.color-palette {
+  border:1px solid red;
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  flex-wrap: wrap;
+  padding: 10px;
+  position: absolute; /* Ensure the palette appears over other content */
+  // bottom: 300px; /* Position above the button */
+  left: 0;
+  background: white; /* Background color for better visibility */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.color-option {
+  width: 15px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .list-view {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .list-view .note {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .grid-view {
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .note {
+    width: 90%;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  .note-content h3 {
+    font-size: 1rem;
+  }
+
+  .note-content p {
+    font-size: 0.875rem;
+  }
+
+  .note-icons {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .icon {
+    width: 100%;
+    height: 40px;
+    font-size: 1rem;
+  }
 }

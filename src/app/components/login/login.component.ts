@@ -20,8 +20,9 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
-        Validators.required
-      ]]
+        Validators.required,
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)
+      ]],
     });
   }
   
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
       email:this.loginForm.value.email,
       password:this.loginForm.value.password
     }
+    if(this.loginForm.valid){
     this.userService.logIn(userdata).subscribe(
       (response:any)=>{
         console.log(response);
@@ -50,7 +52,23 @@ export class LoginComponent implements OnInit {
         this.matSnackBar.open("Login UnsuccessFull",'',{duration:3000})
       }
     )
-    
-  
-}
+  }
+  }
+  forgetPassword() {
+    let email = this.loginForm.value.email;
+    if (this.loginForm.controls['email'].valid) {
+      this.userService.forgetPassword(email).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.matSnackBar.open("Password reset link sent to your email", '', { duration: 3000 });
+        },
+        (error) => {
+          console.log(error);
+          this.matSnackBar.open("Failed to send password reset link", '', { duration: 3000 });
+        }
+      );
+    } else {
+      this.matSnackBar.open("Please enter a valid email", '', { duration: 3000 });
+    }
+  }
 }

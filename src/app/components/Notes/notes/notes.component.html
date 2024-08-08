@@ -1,90 +1,62 @@
 <div class="container">
-<div class="notes-container" [ngClass]="{'list-view': viewMode === 'list', 'grid-view': viewMode === 'grid'}">
-  <div class="note" *ngFor="let note of notes"
-  [style.background-color]="note.backgroundcolor || '#fff'"
-       (mouseenter)="setHoveredNoteId(note.noteId)"
-       (mouseleave)="setHoveredNoteId(null)">
-    <div class="note-content"  (click)="onNoteClick(note)" >
-      <h3>{{ note.title || 'No Title' }}</h3>
-      <p>{{ note.description || 'No Description' }}</p>
-    </div>
-    <div *ngIf="hoveredNoteId === note.noteId" class="note-icons">
-      <div class="icons" [style.background-color]="note.backgroundcolor || '#fff'">
-        <!-- Always visible icons -->
-        <mat-icon class="icon">notifications</mat-icon>
-        <mat-icon class="icon">person_add</mat-icon>
-        <button mat-icon-button [matMenuTriggerFor]="colorLensMenu" class="color">
-          <mat-icon class="lens">color_lens</mat-icon>
-        </button>
-        <mat-menu #colorLensMenu="matMenu">
-          <app-colorlensicon (colorSelected)="handleColorSelected(note, $event)"></app-colorlensicon>
-        </mat-menu>
-        <mat-icon class="icon">image</mat-icon>
-
-        
-        <!-- Icons for 'notes' view -->
-         <div *ngIf="activeItem ==='notes';else unarchieve" class="icon">
-         <mat-icon  class="archieve" (click)="archiveNote(note.noteId)">
-          archive
-        </mat-icon>
-         </div>
-         <ng-template #unarchieve>
-          <mat-icon class="icon" (click)="unarchiveNote(note.noteId)">
-          unarchive
-        </mat-icon>
-        </ng-template>
-          
-        <div *ngIf="activeItem ==='notes' ;else delete" class="icon">
-          <mat-icon  class="archieve" (click)="trashNote(note.noteId)">
-           delete
-          </mat-icon>
-          </div>
-          <ng-template #delete>
-          <mat-icon class="icon" (click)="deleteNote(note.noteId)">
-            delete
-          </mat-icon>
-          </ng-template>
-          <!-- <div *ngIf="activeItem ==='trash'" class="icon">
-            <mat-icon  class="archieve" (click)="deleteNote(note.noteId)">
-             delete
-           </mat-icon>
-           </div> -->
-
-        <!-- <mat-icon *ngIf="activeItem === 'notes' && note.archieve === false && note.trash === false" class="icon" (click)="trashNote(note.noteId)">
-          delete
-        </mat-icon> --> 
-        
-        <!-- Icons for 'archive' view -->
-        
-        
-        <!-- <mat-icon *ngIf="activeItem === 'archive' && note.trash === false" class="icon" (click)="archiveNote(note.noteId)">
-          archive
-        </mat-icon>  -->
-        
-        <!-- Icons for 'trash' view -->
-        <!-- <mat-icon *ngIf="activeItem === 'trash' && note.trash === true" class="icon" (click)="restoreNote(note.noteId)">
-          restore
-        </mat-icon>
-        
-        <mat-icon *ngIf="activeItem === 'trash' && note.trash === false" class="icon" (click)="trashNote(note.noteId)">
-          delete
-        </mat-icon> -->
-        <!-- Static icon for unarchiving a note -->
-        <!-- <mat-icon class="icon" (click)="archiveNote(note.noteId)">archive</mat-icon> -->
-        <!-- <mat-icon class="icon" (click)="unarchiveNote(note.noteId)">
-          unarchive
-        </mat-icon>
-        
-        <mat-icon class="icon" (click)="trashNote(note.noteId)">
-          delete
-        </mat-icon>
-        
-         Static icon for restoring a note -->
-       <!-- <mat-icon class="icon" (click)="restoreNote(note.noteId)">
-          restore
-        </mat-icon>   -->
+  <div class="notes-container" [ngClass]="{'list-view': viewMode === 'list', 'grid-view': viewMode === 'grid'}">
+    <div class="note" *ngFor="let note of notes"
+         [style.background-color]="note.backgroundcolor || '#fff'"
+         (mouseenter)="setHoveredNoteId(note.noteId)"
+         (mouseleave)="setHoveredNoteId(null)">
+      <div class="note-content" (click)="onNoteClick(note)">
+        <h3>{{ note.title || 'No Title' }}</h3>
+        <p>{{ note.description || 'No Description' }}</p>
       </div>
+      
+      <div *ngIf="activeItem === 'notes'; else archivedOrTrash">
+        <div [class.visible]="hoveredNoteId === note.noteId || clickedNoteId === note.noteId" class="note-icons">
+          <div class="icons" [style.background-color]="note.backgroundcolor || '#fff'">
+            <mat-icon class="icon">notifications</mat-icon>
+            <mat-icon class="icon" (click)="onCreateCollab(note.noteId)">person_add</mat-icon>
+            <button mat-icon-button class="color" (click)="toggleNoteIcons(note.noteId)">
+              <mat-icon class="lens">color_lens</mat-icon>
+            </button>
+            <div *ngIf="clickedNoteId === note.noteId" class="color-palette">
+              <div *ngFor="let color of colors" class="color-option" [style.background-color]="color"
+                   (click)="handleColorSelected(note.noteId, color)"></div>
+            </div>
+            <mat-icon class="icon" (click)="archiveNote(note.noteId)">archive</mat-icon>
+            <mat-icon class="icon">image</mat-icon>
+            <mat-icon class="icon" (click)="performNoteAction(note.noteId, note.trash)">delete</mat-icon>
+          </div>
+        </div>
+      </div>
+      
+      <ng-template #archivedOrTrash>
+        <div *ngIf="activeItem === 'archive'; else trashView">
+          <div [class.visible]="hoveredNoteId === note.noteId || clickedNoteId === note.noteId" class="note-icons">
+            <div class="icons" [style.background-color]="note.backgroundcolor || '#fff'">
+              <mat-icon class="icon">notifications</mat-icon>
+              <mat-icon class="icon" (click)="onCreateCollab(note.noteId)">person_add</mat-icon>
+              <button mat-icon-button class="color" (click)="toggleNoteIcons(note.noteId)">
+                <mat-icon class="lens">color_lens</mat-icon>
+              </button>
+              <div *ngIf="clickedNoteId === note.noteId" class="color-palette">
+                <div *ngFor="let color of colors" class="color-option" [style.background-color]="color"
+                     (click)="handleColorSelected(note.noteId, color)"></div>
+              </div>
+              <mat-icon class="icon" (click)="unarchiveNote(note.noteId)">unarchive</mat-icon>
+              <mat-icon class="icon">image</mat-icon>
+              <mat-icon class="icon" (click)="performNoteAction(note.noteId, note.trash)">delete</mat-icon>
+            </div>
+          </div>
+        </div>
+        
+        <ng-template #trashView>
+          <div [class.visible]="hoveredNoteId === note.noteId || clickedNoteId === note.noteId" class="note-icons">
+            <div class="icons" [style.background-color]="note.backgroundcolor || '#fff'">
+              <mat-icon class="archieve" (click)="restoreNote(note.noteId)">restore</mat-icon>
+              <mat-icon class="archieve" (click)="performNoteAction(note.noteId, note.trash)">delete</mat-icon>
+            </div>
+          </div>
+        </ng-template>
+      </ng-template>
     </div>
   </div>
-</div>
 </div>

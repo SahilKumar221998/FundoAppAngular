@@ -197,6 +197,7 @@ body {
   justify-content: center;
 }
 .mat-card-actions {
+ 
   height: 100%;
   width: 98%;
   display: flex;
@@ -211,10 +212,11 @@ body {
 }
 
 .mat-card-actions button {
+  border:1px solid green;
   background-color: #007bff;
   color: white;
-  height: 60%;
-  border-radius: 10px;
+  height: 28px;
+  border-radius: 14px;
 }
 
 .mat-card-actions button:hover {

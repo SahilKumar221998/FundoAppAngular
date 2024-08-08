@@ -30,13 +30,13 @@
                 <mat-label>Enter your password</mat-label>
                 <input matInput placeholder="Enter your password" type="password" autocomplete="off" requried  formControlName="password"/>
                 <mat-error *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
-                    <span *ngIf="f['email'].errors?.['required']">Email is required</span>
-                    <span *ngIf="f['email'].errors?.['email']">Enter a valid email</span>
+                    <span *ngIf="f['email'].errors?.['required']">Password is required</span>
+                    <span *ngIf="f['email'].errors?.['email']">Enter a valid Password</span>
                   </mat-error>
               </mat-form-field>
         </div>
 
-        <div class="button"><button mat-button>Forgot Password?</button></div>
+        <div class="button"><button mat-button (click)="forgetPassword()">Forgot Password?</button></div>
         <div class="footer">
             <button id="create" mat-button fxLayoutAlign="center" routerLink="/signUp">Create New Account</button>
         <button  mat-button  fxLayoutAlign="center center" mat-raised-button

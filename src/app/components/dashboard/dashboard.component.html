@@ -6,13 +6,13 @@
       <mat-icon *ngIf="isSidenavCollapsed">menu</mat-icon>
     </button>
     <img src="assets/icons/keep.png" alt="Google Keep" class="logo">
-    <span class="app-name">Keep</span>
+    <span class="app-name">{{ title }}</span>
     <div class="search-bar">
       <mat-icon>search</mat-icon>
       <input matInput placeholder="Search" [formControl]="searchControl">
     </div>
     <span class="spacer"></span>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="refreshNotes()">
       <mat-icon>refresh</mat-icon>
     </button>
     <button mat-icon-button (click)="toggleViewMode()">
@@ -37,10 +37,12 @@
       [ngClass]="{ 'app-sidenav-collapsed': isSidenavCollapsed, 'app-sidenav-expanded': !isSidenavCollapsed }">
       <mat-nav-list>
         <mat-list-item 
+        [routerLink]="'/dashboard/notes'"
+        routerLinkActive="active"
           [ngClass]="{'active': activeItem === 'notes'}"
           (click)="setActive('notes')">
           <mat-icon matListIcon>lightbulb_outline</mat-icon>
-          <span>Notes</span>
+          <span *ngIf="!isSidenavCollapsed">Notes</span>
         </mat-list-item>
 
         <mat-list-item 
@@ -48,28 +50,32 @@
           [ngClass]="{'active': activeItem === 'reminders'}"
           (click)="setActive('reminders')">
           <mat-icon matListIcon>notifications_none</mat-icon>
-          <span matLine>Reminders</span>
+          <span matLine *ngIf="!isSidenavCollapsed">Reminders</span>
         </mat-list-item>
 
         <mat-list-item
           [ngClass]="{'active': activeItem === 'edit'}"
           (click)="setActive('edit')">
           <mat-icon matListIcon>edit</mat-icon>
-          <span matLine>Edit labels</span>
+          <span matLine *ngIf="!isSidenavCollapsed">Edit labels</span>
         </mat-list-item>
 
         <mat-list-item 
+        [routerLink]="'/dashboard/archive'"
+         routerLinkActive="active"
           [ngClass]="{'active': activeItem === 'archive'}"
           (click)="setActive('archive')">
           <mat-icon matListIcon>archive</mat-icon>
-          <span matLine>Archive</span>
+          <span matLine *ngIf="!isSidenavCollapsed">Archive</span>
         </mat-list-item>
 
         <mat-list-item
+        [routerLink]="'/dashboard/trash'"
+          routerLinkActive="active"
           [ngClass]="{'active': activeItem === 'trash'}"
           (click)="setActive('trash')">
           <mat-icon matListIcon>delete</mat-icon>
-          <span matLine>Trash</span>
+          <span matLine *ngIf="!isSidenavCollapsed">Trash</span>
         </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
@@ -90,8 +96,12 @@
     
       <ng-container *ngIf="activeItem === 'notes'">
         <app-notes 
-        [viewMode]="viewMode"
-        [notes]="filteredNotes" 
+        routerLink="/dashboard/notes"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+         (createCollab)="createCollab($event)"
+          [viewMode]="viewMode"
+          [notes]="filteredNotes" 
           (editNote)="openEditor($event)"
           (archive)="archiveNote($event)" 
           (trash)="trashNote($event)">
@@ -100,6 +110,9 @@
       
       <ng-container *ngIf="activeItem === 'archive'">
         <app-notes 
+        routerLink="/dashboard/archive"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
         [viewMode]="viewMode"
           [activeItem]="activeItem"
           [notes]="archivedNotes" 
@@ -110,6 +123,10 @@
       
       <ng-container *ngIf="activeItem === 'trash'">
         <app-notes 
+        routerLink="/dashboard/trash"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+        [activeItem]="activeItem"
         [viewMode]="viewMode"
           [notes]="trashedNotes" 
           (trash)="trashNote($event)"

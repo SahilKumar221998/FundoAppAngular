@@ -28,4 +28,13 @@ export class UserService {
     }
     return this.httpService.postService(this.url+"/UserLogin",data,false,headerConfig)
    }
+   
+   forgetPassword(email:string){
+    let headerConfig={
+      headers:{
+        'content-type':"application/json"
+      }
+    }
+    return this.httpService.postService(this.url+"/forgetPassword?email="+{email},{},false,headerConfig);
+   }
 }  

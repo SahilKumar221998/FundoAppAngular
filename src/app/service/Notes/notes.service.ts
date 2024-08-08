@@ -66,13 +66,15 @@ export class NotesService {
       };
       return this.httpService.putService(`${this.url}/UnArchieve?noteId=${noteId}`, {}, true, { headers: header });
     }
+    
     updateNotes(data: any) {
       const header = {
         'Content-type': 'application/json',
         'Authorization': "Bearer " + this.token
       };
-      return this.httpService.putService(`${this.url}/updateNotes?noteId=${data.noteId}`, data, true,{ headers: header });
+      return this.httpService.putService(`${this.url}/UpdateNotes?notesId=${data.noteId}`,data, true,{ headers: header });
     }
+    
     deletenote(noteId: string) {
       const header = {
         'Content-type': 'application/json',
@@ -86,6 +88,6 @@ export class NotesService {
         'Content-type': 'application/json',
         'Authorization': "Bearer " + this.token
       };
-      return this.httpService.putService(`${this.url}/Color?noteId=${noteId}`,{}, true,{headers: header });
+      return this.httpService.putService(`${this.url}/Color?noteId=${noteId}&backgroundcolor=${encodeURIComponent(color)}`,{}, true,{headers: header });
     }
 }

@@ -1,3 +1,4 @@
+import { CollabService } from './../../service/Collab/collab.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,12 +25,15 @@ export class DashboardComponent implements OnInit {
   viewMode: 'list' | 'grid' = 'list';
   searchControl = new FormControl(''); 
   selectedColor: string = '';
+  title: string = 'Keep';
+
 
   constructor(
     private fb: FormBuilder,
     private notesService: NotesService,
     private matSnackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private collabService:CollabService
   ) {}
 
   ngOnInit() {
@@ -94,11 +98,26 @@ export class DashboardComponent implements OnInit {
 
   setActive(item: string) {
     this.activeItem = item;
+    this.updateTitle();
     console.log('Active Item:', this.activeItem);
     console.log('Notes:', this.notes);
     this.fetchNotes();  
   }
-
+  updateTitle(): void {
+    switch (this.activeItem) {
+      case 'notes':
+        this.title = 'Keep';
+        break;
+      case 'archive':
+        this.title = 'Archive';
+        break;
+      case 'trash':
+        this.title = 'Trash';
+        break;
+      default:
+        this.title = 'Keep';
+    }
+  }
   toggleSidenav() {
     if (this.hasClicked) {
       this.isSidenavCollapsed = !this.isSidenavCollapsed;
@@ -115,14 +134,15 @@ export class DashboardComponent implements OnInit {
     if (this.notesForm.invalid) {
       this.notesForm.markAllAsTouched();
       this.matSnackBar.open('Please fill out all required fields', '', { duration: 3000 });
+      this.collapseForm();
       return;
     }
 
     let data = {
       title: this.notesForm.value.title,
       description: this.notesForm.value.description,
-      Image: this.notesForm.value.Image,
-      Backgroundcolor: this.selectedColor
+      Image: this.notesForm.value.Image||'',
+      Backgroundcolor: this.selectedColor||''
     };
 
     this.notesService.createNotes(data).subscribe(
@@ -172,6 +192,15 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+ 
+  performNoteAction(noteId: string, trash: boolean) {
+    if (trash) {
+      this.deleteNote(noteId);
+    } else {
+      this.trashNote(noteId);
+    }
+  }
+ 
   unarchiveNote(noteId: string) {
     this.notesService.unArchieveNote(noteId).subscribe(
       (response: any) => {
@@ -206,13 +235,17 @@ export class DashboardComponent implements OnInit {
       this.matSnackBar.open('Note ID is missing', '', { duration: 3000 });
       return;
     }
-  
+    if (noteData.invalid || !noteData.title || !noteData.description) {
+      this.notesForm.markAllAsTouched();
+      this.matSnackBar.open('Please fill out all required fields', '', { duration: 3000 });
+      return;
+    }
     const updatedNote = {
-      noteId: noteData.noteId, // Ensure note ID is included
+      noteId: noteData.noteId,
       title: noteData.title,
-      description: noteData.description||"", // Default to empty string if not provided
-      image: noteData.image||"", // Default to empty string if not provide
-      backgroundcolor:this.selectedColor
+      description: noteData.description||"", 
+      Image: noteData.image||"", 
+      Backgroundcolor:this.selectedColor||noteData.backgroundcolor
     };
     this.notesService.updateNotes(updatedNote).subscribe(
       response => {
@@ -249,5 +282,20 @@ export class DashboardComponent implements OnInit {
   handleColorSelected(color: string) {
     this.selectedColor = color;
     this.notesForm.get('backgroundcolor')?.setValue(color);
+  }
+  
+  refreshNotes() {
+    this.fetchNotes();
+  }
+  
+  createCollab(noteId: string){
+      this.collabService.createCollab(noteId).subscribe(
+          response=>{
+             this.matSnackBar.open("Collaboration Created",'',{duration:3000});
+          },
+          error=>{
+            this.matSnackBar.open("Error Creating Collaboration",'',{duration:3000});
+          }
+      );
   }
 }

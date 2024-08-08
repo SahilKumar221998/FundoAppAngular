@@ -7,43 +7,59 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements OnChanges {
+export class NotesComponent {
   @Input() notes: any[] = []; // Array to receive notes from parent
-  @Input() activeItem:string='notes';
+  @Input() activeItem='notes';
   @Output() archive = new EventEmitter<string>();
   @Output() trash = new EventEmitter<string>();
   @Output() delete = new EventEmitter<string>();
   @Output() restore = new EventEmitter<string>();
   @Output() unarchive = new EventEmitter<string>();
   @Output() editNote = new EventEmitter<any>();
+  @Output() createCollab = new EventEmitter<string>();
   @Input() viewMode: 'list' | 'grid' = 'list';
   isDropdownFixed: boolean = false;
-  
+  clickedNoteId: string | null = null;
   showIcons = false;
   hoveredNoteId: number | null = null; 
-  constructor(private matSnackBar:MatSnackBar,private notesService:NotesService){
+
+  colors = ['#f28b82', '#fbbc04', '#fff475', '#ccff90', '#a7ffeb', '#cbf0f8', '#aecbfa', '#d7aefb', '#fdcfe8', '#e6c9a8', '#e8eaed'];
+  constructor(private matSnackBar:MatSnackBar,private notesService:NotesService ){
     console.log(this.activeItem);
   }
   ngOInit(){
    console.log(this.activeItem)
 
   }
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['activeItem']) {
-      console.log('Active Item Changed:',this.activeItem);
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['activeItem']) {
+  //     console.log('Active Item Changed:',this.activeItem);
+  //   }
+  // }
 
-  handleColorSelected(note:any,color: string) {
-    note.backgroundcolor = color;
-    this.notesService.updateBackground(note.noteId,color).subscribe(
+  handleColorSelected(noteId: string, color: string) {
+    this.notesService.updateBackground(noteId, color).subscribe(
       (response: any) => {
         this.matSnackBar.open('Note color updated', '', { duration: 3000 });
+        this.updateNoteColor(noteId, color);
+        this.clickedNoteId = null;
       },
       (error: any) => {
         this.matSnackBar.open('Error updating note color', '', { duration: 3000 });
+        this.clickedNoteId = null;
       }
     );
+  }
+
+  updateNoteColor(noteId: string, color: string) {
+    const note = this.notes.find(n => n.noteId === noteId);
+    if (note) {
+      note.backgroundcolor = color;
+    }
+  }
+
+  onCreateCollab(noteId: string) {
+    this.createCollab.emit(noteId);
   }
 
   collapseForm() {
@@ -56,7 +72,14 @@ export class NotesComponent implements OnChanges {
     console.log(noteId);
     this.archive.emit(noteId);
   }
-
+  
+  performNoteAction(noteId: string, trash: boolean) {
+    if (trash) {
+      this.delete.emit(noteId); // Call delete method
+    } else {
+      this.trash.emit(noteId); // Call trash method
+    }
+  }
   trashNote(noteId: string) {
     this.trash.emit(noteId);
   }
@@ -72,4 +95,8 @@ export class NotesComponent implements OnChanges {
   onNoteClick(note: any) {
     this.editNote.emit(note);
   }
+  toggleNoteIcons(noteId: string) {
+    this.clickedNoteId = this.clickedNoteId === noteId ? null : noteId;
+  }
+
 }

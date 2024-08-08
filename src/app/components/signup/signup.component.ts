@@ -47,13 +47,15 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.submitted=true;
-    if (this.signupForm.invalid) {
+    console.log("Form Submitted");
+    console.log("Form Valid:", this.signupForm.valid);
     let userData={
       firstName:this.signupForm.value.firstName,
       lastName:this.signupForm.value.lastName,
       email:this.signupForm.value.email,
       password:this.signupForm.value.password
     }
+    if(this.signupForm.valid){
     this.userService.signUp(userData).subscribe(
       (response:any)=>{
         console.log(response);
@@ -67,5 +69,5 @@ export class SignupComponent implements OnInit {
     )
     
   }
-}
+ }
 }

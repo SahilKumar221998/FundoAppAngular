@@ -104,24 +104,24 @@
 }
 
 .note-title {
-  font-size: 1 rem;
+  font-size: 1rem;
   font-weight: 500;
   border: none;
   outline: none;
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
+
 .note-content {
-  border:1px solid red;
+  border: 1px solid red;
   display: flex;
   flex: 1;
   border: none;
   outline: none;
   resize: none;
   margin-bottom: 8px;
-  font-size:13px;
+  font-size: 13px;
   color: #3c4043;
 }
-
 
 mat-toolbar {
   position: sticky;
@@ -142,7 +142,26 @@ mat-toolbar {
 }
 
 .app-sidenav-collapsed {
-  width: 60px;
+  width: 80px;
+}
+
+.app-sidenav-collapsed mat-list-item {
+  justify-content: center;
+}
+
+
+.app-sidenav-collapsed mat-list-item mat-icon {
+  background-color: #f6dc8d;;
+  border-radius: 50%;
+  padding: 10px;
+  margin: 0;
+  width: auto; 
+  height: auto; 
+  font-size: 18px;
+}
+
+.app-sidenav-collapsed mat-list-item:hover mat-icon {
+  background-color:#f6dc8dc6;;
 }
 
 .app-sidenav-expanded {
@@ -151,45 +170,112 @@ mat-toolbar {
 
 mat-list-item {
   display: flex;
-  align-items: center; /* Vertically center the items */
+  align-items: center;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   margin-right: 8px;
   cursor: pointer;
   font-size: 1rem;
-  box-sizing: border-box; /*padding is included in the width */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 mat-list-item mat-icon {
   margin-right: 16px;
-  margin-top: 5px; /* Space between icon and text */
   color: #5f6368;
-  font-size: 18px; /* Icon size */
+  font-size: 18px;
   height: 100%;
-  width:9%;
-  
 }
 
 mat-list-item .mat-line {
-  flex: 1; /* Ensure the text takes available space */
+  flex: 1;
   display: flex;
   align-items: center;
 }
 
 span {
-  margin: 0; /* Remove any default margin */
-  font-size: 18px; /* Ensure font size matches the rest */
+  margin: 0;
+  font-size: 18px;
 }
 
 mat-list-item:hover {
-  background-color:rgba(211, 211, 211, 0.165); /* Background color on hover */
+  background-color: rgba(211, 211, 211, 0.165);
 }
 
 mat-list-item.active {
-  background-color: #efce6d;
+  background-color: #f6dc8d;
 }
 
 mat-list-item.active mat-icon {
   color: #3c4043;
+}
+.app-sidenav-collapsed .app-sidenav-expanded {
+  display: none;
+  background-color: none;
+}
+@media (max-width: 1200px) {
+  .note-form {
+    width: 60%;
+    height: auto;
+  }
+
+  .note-search-bar {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .note-form {
+    width: 80%;
+  }
+
+  .note-search-bar {
+    width: 90%;
+  }
+
+  .app-sidenav {
+    width: 200px;
+  }
+
+  .app-sidenav-collapsed {
+    width: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .logo, .app-name, .spacer{
+    display: none;
+  }
+
+  .search-icon {
+    display: block;
+  }
+
+  .app-sidenav-expanded {
+    display: none;
+  }
+
+  .app-sidenav-collapsed {
+    width: 80px; 
+    .mat-list-item {
+      display: flex;
+      justify-content: center;
+    }
+    .mat-list-item span {
+      display: none;
+    }
+  }
+
+  .mat-menu {
+    display: none;
+  }
+
+  .mat-menu-trigger {
+    display: block;
+  }
 }
